@@ -23,7 +23,7 @@ public class SudokuTest extends SudokuSolver{
     private By message = By.xpath("//span[@id='message']/font/b");
 
     @BeforeClass
-    public void setup() {
+    private void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -31,14 +31,14 @@ public class SudokuTest extends SudokuSolver{
 
     }
 
-    public String getXpath(int row, int col){
+    private String getXpath(int row, int col){
 
         String xpath = "//input[@id='f"+ col + row +"']";
         //System.out.println("Finding xpath for ::: " +xpath);
         return xpath;
     }
 
-    public void readPuzzle(){
+    private void readPuzzle(){
 
         for (int row=0; row<GRID_SIZE; row++){
             for(int col=0; col<GRID_SIZE; col++){
@@ -54,7 +54,7 @@ public class SudokuTest extends SudokuSolver{
     }
 
     @Test
-    public void PuzzleTest(){
+    private void PuzzleTest(){
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
@@ -84,7 +84,7 @@ public class SudokuTest extends SudokuSolver{
         Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
     }
 
-    public void writeToPuzzle(int[][] board){
+    private void writeToPuzzle(int[][] board){
 
         for (int row=0; row<GRID_SIZE; row++){
             for(int col=0; col<GRID_SIZE; col++){
@@ -97,11 +97,11 @@ public class SudokuTest extends SudokuSolver{
     }
 
     @AfterClass
-    public void tearDown() {
+    private void tearDown() {
         driver.quit();
     }
 
-    public void explicitWaitMethod(By element) {
+    private void explicitWaitMethod(By element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }

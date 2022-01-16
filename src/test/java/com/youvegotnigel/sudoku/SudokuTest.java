@@ -16,12 +16,12 @@ import java.time.Duration;
 
 public class SudokuTest extends SudokuSolver{
 
-    private int[][] board = new int[GRID_SIZE][GRID_SIZE];
+    private final int[][] board = new int[GRID_SIZE][GRID_SIZE];
 
     private WebDriver driver;
-    private By table = By.id("puzzle_grid");
-    private By submit = By.xpath("//input[@name='submit']");
-    private By message = By.xpath("//span[@id='message']/font/b");
+    private final By table = By.id("puzzle_grid");
+    private final By submit = By.xpath("//input[@name='submit']");
+    private final By message = By.xpath("//span[@id='message']/font/b");
 
     @BeforeClass
     private void setup() {
@@ -34,9 +34,7 @@ public class SudokuTest extends SudokuSolver{
 
     private String getXpath(int row, int col){
 
-        String xpath = "//input[@id='f"+ col + row +"']";
-        //System.out.println("Finding xpath for ::: " +xpath);
-        return xpath;
+        return "//input[@id='f"+ col + row +"']";
     }
 
     private void readPuzzle(){

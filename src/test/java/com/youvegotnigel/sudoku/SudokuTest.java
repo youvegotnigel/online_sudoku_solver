@@ -111,15 +111,15 @@ public class SudokuTest extends SudokuSolver{
     }
 
     private boolean isAttributePresent(WebElement element, String attribute) {
-        Boolean result = false;
         try {
             String value = element.getAttribute(attribute);
             if (value != null){
-                result = true;
+                return true;
             }
-        } catch (Exception e) {}
-
-        return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

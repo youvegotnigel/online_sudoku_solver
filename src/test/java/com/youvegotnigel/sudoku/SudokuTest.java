@@ -54,7 +54,7 @@ public class SudokuTest extends SudokuSolver{
     }
 
     @Test
-    private void PuzzleTest(){
+    public void PuzzleTest(){
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());

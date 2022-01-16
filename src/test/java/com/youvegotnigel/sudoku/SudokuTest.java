@@ -3,6 +3,7 @@ package com.youvegotnigel.sudoku;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -90,8 +91,11 @@ public class SudokuTest extends SudokuSolver{
             for(int col=0; col<GRID_SIZE; col++){
 
                 int solution = board[row][col];
+                WebElement element = driver.findElement(By.xpath(getXpath(row,col)));
 
-                driver.findElement(By.xpath(getXpath(row,col))).sendKeys(String.valueOf(solution));
+                if(!isAttributePresent(element,"readonly value")){
+                    element.sendKeys(String.valueOf(solution));
+                }
             }
         }
     }
@@ -104,6 +108,18 @@ public class SudokuTest extends SudokuSolver{
     private void explicitWaitMethod(By element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+
+    private boolean isAttributePresent(WebElement element, String attribute) {
+        Boolean result = false;
+        try {
+            String value = element.getAttribute(attribute);
+            if (value != null){
+                result = true;
+            }
+        } catch (Exception e) {}
+
+        return result;
     }
 
 }

@@ -51,3 +51,6 @@ screenshots/
 #Allure Results
 allure-results/
 allure-report/
+
+#Exported Test Results
+Test Results - SudokuTest.html

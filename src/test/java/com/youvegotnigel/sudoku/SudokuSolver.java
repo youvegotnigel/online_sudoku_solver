@@ -17,7 +17,7 @@ public class SudokuSolver {
             }
             System.out.println();
         }
-        System.out.println("\n");
+        System.out.println();
     }
 
     private static boolean isNumberInRow(int[][] board, int number, int row){

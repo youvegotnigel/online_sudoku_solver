@@ -5,7 +5,10 @@
         <classes>
             <class name="com.youvegotnigel.sudoku.SudokuTest">
                 <methods>
-                    <include name="PuzzleTest"/>
+                    <include name="EasyPuzzleTest"/>
+                    <include name="MediumPuzzleTest"/>
+                    <include name="HardPuzzleTest"/>
+                    <include name="EvilPuzzleTest"/>
                 </methods>
             </class>
         </classes>

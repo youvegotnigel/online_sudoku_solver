@@ -17,6 +17,7 @@ import java.time.Duration;
 public class SudokuTest extends SudokuSolver{
 
     private final int[][] board = new int[GRID_SIZE][GRID_SIZE];
+    private final String AUT_URL = "https://nine.websudoku.com";
 
     private WebDriver driver;
     private final By table = By.id("puzzle_grid");
@@ -28,7 +29,7 @@ public class SudokuTest extends SudokuSolver{
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://nine.websudoku.com/");
+        driver.get(AUT_URL);
 
     }
 
@@ -52,13 +53,15 @@ public class SudokuTest extends SudokuSolver{
         }
     }
 
-    @Test
-    public void PuzzleTest(){
+    @Test(priority=1)
+    public void EasyPuzzleTest(){
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
         readPuzzle();
 
+        System.out.println("###################################################");
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.EASY);
         System.out.println("After reading the puzzle");
         System.out.println("--------------------------\n");
         printBoard(board);
@@ -69,6 +72,115 @@ public class SudokuTest extends SudokuSolver{
             System.out.println("Unsolved board :( \n");
         }
 
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.EASY);
+        System.out.println("After solving the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        writeToPuzzle(board);
+
+        driver.findElement(submit).click();
+
+        explicitWaitMethod(message);
+        String result = driver.findElement(message).getText();
+
+        Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+    }
+
+    @Test(priority=2)
+    public void MediumPuzzleTest(){
+
+        driver.navigate().to(AUT_URL + "/?level=2");
+
+        explicitWaitMethod(table);
+        Assert.assertTrue(driver.findElement(table).isDisplayed());
+        readPuzzle();
+
+        System.out.println("###################################################");
+        System.out.println("Puzzle Level ::: " + PuzzleLevels.MEDIUM);
+        System.out.println("After reading the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        if(solveBoard(board)){
+            System.out.println("Solved successfully! \n");
+        }else {
+            System.out.println("Unsolved board :( \n");
+        }
+
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.MEDIUM);
+        System.out.println("After solving the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        writeToPuzzle(board);
+
+        driver.findElement(submit).click();
+
+        explicitWaitMethod(message);
+        String result = driver.findElement(message).getText();
+
+        Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+    }
+
+    @Test(priority=3)
+    public void HardPuzzleTest(){
+
+        driver.navigate().to(AUT_URL + "/?level=3");
+
+        explicitWaitMethod(table);
+        Assert.assertTrue(driver.findElement(table).isDisplayed());
+        readPuzzle();
+
+        System.out.println("###################################################");
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.HARD);
+        System.out.println("After reading the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        if(solveBoard(board)){
+            System.out.println("Solved successfully! \n");
+        }else {
+            System.out.println("Unsolved board :( \n");
+        }
+
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.HARD);
+        System.out.println("After solving the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        writeToPuzzle(board);
+
+        driver.findElement(submit).click();
+
+        explicitWaitMethod(message);
+        String result = driver.findElement(message).getText();
+
+        Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+    }
+
+    @Test(priority=4)
+    public void EvilPuzzleTest(){
+
+        driver.navigate().to(AUT_URL + "/?level=4");
+
+        explicitWaitMethod(table);
+        Assert.assertTrue(driver.findElement(table).isDisplayed());
+        readPuzzle();
+
+        System.out.println("###################################################");
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.EVIL);
+        System.out.println("After reading the puzzle");
+        System.out.println("--------------------------\n");
+        printBoard(board);
+
+        if(solveBoard(board)){
+            System.out.println("Solved successfully! \n");
+        }else {
+            System.out.println("Unsolved board :( \n");
+        }
+
+        System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.EVIL);
         System.out.println("After solving the puzzle");
         System.out.println("--------------------------\n");
         printBoard(board);

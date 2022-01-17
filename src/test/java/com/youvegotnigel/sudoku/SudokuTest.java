@@ -24,13 +24,11 @@ public class SudokuTest extends SudokuSolver{
     private final By submit = By.xpath("//input[@name='submit']");
     private final By message = By.xpath("//span[@id='message']/font/b");
 
-    @BeforeClass
+    //@BeforeClass
     private void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get(AUT_URL);
-
     }
 
     private String getXpath(int row, int col){
@@ -55,6 +53,11 @@ public class SudokuTest extends SudokuSolver{
 
     @Test(priority=1)
     public void EasyPuzzleTest(){
+
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(AUT_URL);
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
@@ -85,12 +88,16 @@ public class SudokuTest extends SudokuSolver{
         String result = driver.findElement(message).getText();
 
         Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+        driver.quit();
     }
 
     @Test(priority=2)
     public void MediumPuzzleTest(){
 
-        driver.navigate().to(AUT_URL + "/?level=2");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(AUT_URL + "/?level=2");
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
@@ -121,12 +128,16 @@ public class SudokuTest extends SudokuSolver{
         String result = driver.findElement(message).getText();
 
         Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+        driver.quit();
     }
 
     @Test(priority=3)
     public void HardPuzzleTest(){
 
-        driver.navigate().to(AUT_URL + "/?level=3");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(AUT_URL + "/?level=3");
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
@@ -157,12 +168,16 @@ public class SudokuTest extends SudokuSolver{
         String result = driver.findElement(message).getText();
 
         Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+        driver.quit();
     }
 
     @Test(priority=4)
     public void EvilPuzzleTest(){
 
-        driver.navigate().to(AUT_URL + "/?level=4");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(AUT_URL + "/?level=4");
 
         explicitWaitMethod(table);
         Assert.assertTrue(driver.findElement(table).isDisplayed());
@@ -193,6 +208,7 @@ public class SudokuTest extends SudokuSolver{
         String result = driver.findElement(message).getText();
 
         Assert.assertTrue(result.contains("Congratulations! You solved this Sudoku"));
+        driver.quit();
     }
 
     private void writeToPuzzle(int[][] board){
@@ -210,9 +226,14 @@ public class SudokuTest extends SudokuSolver{
         }
     }
 
-    @AfterClass
+    //@AfterClass
     private void tearDown() {
-        driver.quit();
+        try {
+            Thread.sleep(3000);
+            driver.quit();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void explicitWaitMethod(By element) {

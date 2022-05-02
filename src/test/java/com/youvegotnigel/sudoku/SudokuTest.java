@@ -5,12 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -24,10 +24,31 @@ public class SudokuTest extends SudokuSolver{
     private final By submit = By.xpath("//input[@name='submit']");
     private final By message = By.xpath("//span[@id='message']/font/b");
 
-    @BeforeClass
+    @BeforeTest
     private void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+
+        String browser = System.getProperty("browser");
+        System.out.println("browser is set to : " + browser);
+
+        if(browser.equals("chrome")){
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
+        else if(browser.equals("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+        }
+        else if(browser.equals("edge")){
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver();
+        }
+        else{
+            System.out.println("could not find valid browser");
+            System.out.println("using default browser chrome");
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
+
         driver.manage().window().maximize();
         driver.get(AUT_URL);
 
@@ -210,7 +231,7 @@ public class SudokuTest extends SudokuSolver{
         }
     }
 
-    @AfterClass
+    @AfterTest
     private void tearDown() {
         driver.quit();
     }

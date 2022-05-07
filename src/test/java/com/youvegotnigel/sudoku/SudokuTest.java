@@ -243,7 +243,7 @@ public class SudokuTest extends SudokuSolver{
 
     private boolean isAttributePresent(WebElement element, String attribute) {
         try {
-            String value = element.getAttribute(attribute);
+            String value   = element.getAttribute(attribute);
             if (value != null){
                 return true;
             }

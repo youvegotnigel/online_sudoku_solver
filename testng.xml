@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Online Sudoku Solver" parallel="methods" thread-count="4">
-    <test name="Easy Level Puzzle">
+    <test name="All Puzzle Levels">
         <classes>
             <class name="com.youvegotnigel.sudoku.SudokuTest">
                 <methods>

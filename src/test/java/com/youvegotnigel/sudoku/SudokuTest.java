@@ -14,8 +14,8 @@ import java.time.Duration;
 public class SudokuTest extends SudokuSolver{
 
     private final int[][] board = new int[GRID_SIZE][GRID_SIZE];
-    private static final int BROWSER_WIDTH = 400;
-    private static final int BROWSER_HEIGHT = 1000;
+    private static final int BROWSER_WIDTH = 250;
+    private static final int BROWSER_HEIGHT = 800;
     private static int HEIGHT;
     private static int WIDTH;
     private final String AUT_URL = "https://nine.websudoku.com";
@@ -141,9 +141,6 @@ public class SudokuTest extends SudokuSolver{
 
         getDriver().manage().window().setSize(new Dimension(BROWSER_WIDTH, BROWSER_HEIGHT));
         getDriver().manage().window().setPosition(new Point((int) (WIDTH*0.5), 0));
-        getDriver().manage().window().maximize();
-
-
         getDriver().get(AUT_URL + "/?level=3");
 
         explicitWaitMethod(table);

@@ -1,9 +1,7 @@
 package com.youvegotnigel.sudoku;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +14,10 @@ import java.time.Duration;
 public class SudokuTest extends SudokuSolver{
 
     private final int[][] board = new int[GRID_SIZE][GRID_SIZE];
+    private static final int BROWSER_WIDTH = 400;
+    private static final int BROWSER_HEIGHT = 1000;
+    private static int HEIGHT;
+    private static int WIDTH;
     private final String AUT_URL = "https://nine.websudoku.com";
     private final By table = By.id("puzzle_grid");
     private final By submit = By.xpath("//input[@name='submit']");
@@ -27,7 +29,11 @@ public class SudokuTest extends SudokuSolver{
     private void setup() {
         WebDriverManager.chromedriver().setup();
         driver.set(ThreadGuard.protect(new ChromeDriver()));
-        getDriver().manage().window().maximize();
+        Dimension initial_size = getDriver().manage().window().getSize();
+        HEIGHT = initial_size.getHeight();
+        WIDTH = initial_size.getWidth();
+        System.out.println("height = " + HEIGHT);
+        System.out.println("width = " + WIDTH);
     }
 
     public static WebDriver getDriver(){
@@ -57,6 +63,8 @@ public class SudokuTest extends SudokuSolver{
     @Test(priority=1)
     public void EasyPuzzleTest(){
 
+        getDriver().manage().window().setSize(new Dimension(BROWSER_WIDTH, BROWSER_HEIGHT));
+        getDriver().manage().window().setPosition(new Point(0, 0));
         getDriver().get(AUT_URL);
 
         explicitWaitMethod(table);
@@ -93,6 +101,8 @@ public class SudokuTest extends SudokuSolver{
     @Test(priority=2)
     public void MediumPuzzleTest(){
 
+        getDriver().manage().window().setSize(new Dimension(BROWSER_WIDTH, BROWSER_HEIGHT));
+        getDriver().manage().window().setPosition(new Point((int) (WIDTH*0.25), 0));
         getDriver().get(AUT_URL + "/?level=2");
 
         explicitWaitMethod(table);
@@ -129,11 +139,17 @@ public class SudokuTest extends SudokuSolver{
     @Test(priority=3)
     public void HardPuzzleTest(){
 
+        getDriver().manage().window().setSize(new Dimension(BROWSER_WIDTH, BROWSER_HEIGHT));
+        getDriver().manage().window().setPosition(new Point((int) (WIDTH*0.5), 0));
+        getDriver().manage().window().maximize();
+
+
         getDriver().get(AUT_URL + "/?level=3");
 
         explicitWaitMethod(table);
         Assert.assertTrue(getDriver().findElement(table).isDisplayed());
         readPuzzle();
+
 
         System.out.println("###################################################");
         System.out.println("PUZZLE LEVEL ::: " + PuzzleLevels.HARD);
@@ -166,6 +182,8 @@ public class SudokuTest extends SudokuSolver{
     @Test(priority=4)
     public void EvilPuzzleTest(){
 
+        getDriver().manage().window().setSize(new Dimension(BROWSER_WIDTH, BROWSER_HEIGHT));
+        getDriver().manage().window().setPosition(new Point((int) (WIDTH*0.75), 0));
         getDriver().get(AUT_URL + "/?level=4");
 
         explicitWaitMethod(table);
